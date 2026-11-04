@@ -1,4 +1,4 @@
-public class Gestor {
+public class Gestor extends Thread {
     private int zonaEspera;
     private int Id;
     private BuzonEntrada buzon;
