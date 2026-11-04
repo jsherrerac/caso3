@@ -30,7 +30,7 @@ public class ZonaEspera {
         version++;
         notifyAll();
     }
-    public void esperarDebajoUmbral(){
+    public void entrarSiCongestionada(){
         synchronized (this){
             if (cola.size()<umbral) return;
         }
