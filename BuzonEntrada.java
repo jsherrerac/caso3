@@ -26,21 +26,18 @@ public class BuzonEntrada {
             agregados.add(solicitud);
             notifyAll();
     }
-    public synchronized Solicitud extraer(){
-        while(agregados.size()==0 && uActivos>0){
-            try{wait();
-
-            }catch (InterruptedException e){
-                e.printStackTrace();
+    public Solicitud extraer(){ //tiene que ser semi activo
+        while(true){
+            synchronized(this){
+                if (!agregados.isEmpty()){
+                    Solicitud s= agregados.remove(0);
+                    notifyAll();
+                    return s;
+                }
+                if (uActivos==0) return null;
             }
-
+        Thread.yield();
         }
-        if (agregados.isEmpty()) return null;   
-        Solicitud s=agregados.remove(0); 
-        notifyAll();
-        return s;
-        
-
     }
     public synchronized boolean hayUsuariosActivos(){
         return uActivos>0;
@@ -48,5 +45,8 @@ public class BuzonEntrada {
     public synchronized void reportarTerminacion(){
         uActivos--;
         notifyAll();
+    }
+    public synchronized boolean estaVacio(){
+        return agregados.isEmpty();
     }
 }

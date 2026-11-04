@@ -34,7 +34,7 @@ public class Usuario extends Thread{
         int topeMemoria= (int) Math.round(0.75*config.getMemoria());
         int memoria= ThreadLocalRandom.current().nextInt(1, topeMemoria+1);
         if (memoria==1) return 1;
-        int exponente =(int) Math.floor(Math.log(memoria)/Math.log(2) + 1e-9); //1e-9 es para que nunca de 2.9999 sino 3, por ejemplo
+        int exponente =(int) Math.floor(Math.log(memoria-1)/Math.log(2) + 1e-9); //1e-9 es para que nunca de 2.9999 sino 3, por ejemplo
         return 1<<exponente; //esto al parecer corre bits (multiplica por 2), si exponente es 3, se mueve 3 a la izquierda que es 2^3=8
     }
     public int generarEspacio(){
